@@ -10,8 +10,6 @@ function error(message) {
 }
 
 module.exports = {
-  logger: {
-    log,
-    error,
-  },
+  log,
+  error,
 };
