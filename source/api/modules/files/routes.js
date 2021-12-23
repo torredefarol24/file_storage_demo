@@ -1,13 +1,13 @@
 const router = require("express").Router();
-const { StatusCodes } = require("http-status-codes");
+const { downloadFile, deleteFile, uploadFile } = require("./controller");
+const {
+  hasPublicKey,
+  hasPrivateKey,
+  isAuthorized,
+} = require("../../middleware");
 
-router.get("/", function (request, response) {
-  const context = {
-    success: true,
-    message: "Health OK!",
-    data: null,
-  };
-  return response.status(StatusCodes.OK).json(context);
-});
+router.post("/", isAuthorized, uploadFile);
+router.get("/:publicKey", hasPublicKey, downloadFile);
+router.delete("/:privateKey", [hasPrivateKey, isAuthorized], deleteFile);
 
 module.exports = router;
