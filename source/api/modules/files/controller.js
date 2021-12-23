@@ -47,14 +47,18 @@ async function uploadFile(request, response) {
 
 async function deleteFile(request, response) {
   try {
-    const context = {
+    let context = {
       success: true,
-      message: "Health OK!",
-      data: {
-        publicKey: "",
-        privateKey: "",
-      },
+      message: "File Deleted",
+      data: {},
     };
+    const { hasError, statusCode, message } = await FileService.deleteFile(
+      request.params.privateKey
+    );
+    if (hasError) {
+      logger.error(message);
+      return response.status(statusCode).json(errorContext(message));
+    }
     return response.status(StatusCodes.OK).json(context);
   } catch (err) {
     logger.error(err);
