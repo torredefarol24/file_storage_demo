@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const { logger, errorContext } = require("../../utlity");
+const { handleAppException } = require("../../utility");
 const { UserService } = require("./service");
 
 async function generateUserInfo(request, response) {
@@ -17,10 +17,7 @@ async function generateUserInfo(request, response) {
     };
     return response.status(StatusCodes.OK).json(context);
   } catch (err) {
-    logger.error(err);
-    return response
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json(errorContext(err.message));
+    return handleAppException(err, response);
   }
 }
 

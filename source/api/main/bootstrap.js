@@ -2,7 +2,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const { router } = require("../modules");
 const { connect } = require("mongoose");
-const { logger } = require("../utlity");
+const { logger } = require("../utility");
 const { ENV } = require("../config");
 
 async function connectToDB() {

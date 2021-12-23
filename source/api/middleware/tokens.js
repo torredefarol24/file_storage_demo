@@ -1,15 +1,17 @@
-const { logger, errorContext } = require("../utlity");
+const { handleAppError } = require("../utility");
 const { StatusCodes } = require("http-status-codes");
-const { TokenService } = require("../utlity");
+const { TokenService } = require("../utility");
+
+const errParams = {
+  statusCode: StatusCodes.UNAUTHORIZED,
+  message: "Bad Token",
+};
 
 async function isAuthorized(request, response, next) {
   try {
     let bearerToken = request.headers && request.headers.authorization;
     if (!bearerToken) {
-      logger.error("Token Missing");
-      return response
-        .status(StatusCodes.UNAUTHORIZED)
-        .json(errorContext("Token Missing"));
+      return handleAppError(errParams, response);
     }
     const authToken = bearerToken.split(" ")[1];
     const decodedToken = await TokenService.verifyToken(authToken);
@@ -18,9 +20,7 @@ async function isAuthorized(request, response, next) {
     };
     next();
   } catch (err) {
-    return response
-      .status(StatusCodes.FORBIDDEN)
-      .json(errorContext(err.message));
+    return handleAppError(errParams, response);
   }
 }
 

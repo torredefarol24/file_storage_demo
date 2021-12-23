@@ -7,7 +7,7 @@
 5. for this demo, save files in dir of project
 6. integrate unit testing
 7. implement crob job to remove inactive files
-8. create upload/download limit from same IP
+8. ~~create upload/download limit from same IP~~
 
 ---
 
@@ -23,7 +23,7 @@
 4. ~~enable cors~~
 5. ~~bootstrap app~~
 6. ~~create middleware for checking req params~~
-7. while deleting check if owner is USER_TOKEN
+7. ~~while deleting check if reqUser is fileCreator~~
 8. ~~JWT~~
 9. ~~POST & DELETE: isAuthorized middleware~~
-10. download file: check count and last download Date is less than currentday & limit
+10. ~~download file: check count and last download Date is less than currentday & limit~~

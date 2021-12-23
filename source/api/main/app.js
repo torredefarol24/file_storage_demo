@@ -1,5 +1,5 @@
 const express = require("express");
-const { logger } = require("../utlity");
+const { logger } = require("../utility");
 const { ENV } = require("../config");
 const { bootstrapApp, connectToDB } = require("./bootstrap");
 

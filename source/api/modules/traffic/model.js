@@ -8,7 +8,7 @@ const timeStampOpts = {
 };
 
 const schemaOpts = {
-  filedId: {
+  fileId: {
     type: Schema.Types.ObjectId,
     ref: MODELS.FILES,
     author: true,

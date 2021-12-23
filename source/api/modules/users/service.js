@@ -1,5 +1,5 @@
 const { User } = require("./model");
-const { TokenService } = require("../../utlity");
+const { TokenService } = require("../../utility");
 
 class UserService {
   static async createUser() {

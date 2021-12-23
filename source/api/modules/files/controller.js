@@ -1,23 +1,35 @@
 const { StatusCodes } = require("http-status-codes");
-const { logger, errorContext } = require("../../utlity");
+const { handleAppError, handleAppException } = require("../../utility");
 const { FileService } = require("./service");
+const { TrafficService } = require("../traffic");
 
 async function downloadFile(request, response) {
   try {
-    const context = {
+    let context = {
       success: true,
-      message: "Health OK!",
-      data: {
-        publicKey: "",
-        privateKey: "",
-      },
+      message: "File Download successful",
+      data: {},
     };
+
+    const fileInfo = await FileService.downloadFile(request.params.publicKey);
+    const { file } = fileInfo;
+    if (fileInfo.hasError) {
+      return handleAppError(fileInfo, response);
+    }
+
+    const trafficParams = {
+      fileId: file.id,
+      ipAddress: request.connection.remoteAddress,
+    };
+    const limitInfo = await TrafficService.checkLimit(trafficParams);
+    if (limitInfo.hasError) {
+      return handleAppError(limitInfo, response);
+    }
+
+    context.data = file.name;
     return response.status(StatusCodes.OK).json(context);
   } catch (err) {
-    logger.error(err);
-    return response
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json(errorContext(err.message));
+    return handleAppException(err, response);
   }
 }
 
@@ -38,10 +50,7 @@ async function uploadFile(request, response) {
     };
     return response.status(StatusCodes.OK).json(context);
   } catch (err) {
-    logger.error(err);
-    return response
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json(errorContext(err.message));
+    return handleAppException(err, response);
   }
 }
 
@@ -52,19 +61,19 @@ async function deleteFile(request, response) {
       message: "File Deleted",
       data: {},
     };
-    const { hasError, statusCode, message } = await FileService.deleteFile(
-      request.params.privateKey
-    );
-    if (hasError) {
-      logger.error(message);
-      return response.status(statusCode).json(errorContext(message));
+
+    const deleteParams = {
+      privateKey: request.params.privateKey,
+      reqUserId: request.user.id,
+    };
+    const deleteFileInfo = await FileService.deleteFile(deleteParams);
+    if (deleteFileInfo.hasError) {
+      return handleAppError(deleteFileInfo, response);
     }
+
     return response.status(StatusCodes.OK).json(context);
   } catch (err) {
-    logger.error(err);
-    return response
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json(errorContext(err.message));
+    return handleAppException(err, response);
   }
 }
 
