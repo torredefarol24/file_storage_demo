@@ -4,22 +4,37 @@ const envOpt = {
 };
 require("dotenv").config(envOpt);
 
+const {
+  // SYSTEM
+  PORT,
+  FOLDER,
+  DONWLOAD_LIMIT,
+
+  // DATABASE
+  DB_URL,
+
+  // TOKENS
+  JWT_SECRET,
+  EXPIRY_TIME,
+} = process.env;
+
 const SYSTEM = {
-  PORT: process.env.PORT,
-  STORAGE_PATH: process.env.FOLDER,
+  PORT,
+  STORAGE_PATH: FOLDER,
+  DONWLOAD_LIMIT,
 };
 
 const DB = {
-  CONNECTION_URL: process.env.DB_URL,
+  CONNECTION_URL: DB_URL,
 };
 
 const TOKENS = {
-  TOKEN_EXPIRY_TIME: "30d",
-  SECRET_KEY : process.env.JWT_SECRET
-}
+  EXPIRY_TIME,
+  SECRET_KEY : JWT_SECRET,
+};
 
 module.exports = {
   SYSTEM,
   DB,
-  TOKENS
+  TOKENS,
 };

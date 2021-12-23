@@ -25,4 +25,5 @@
 6. ~~create middleware for checking req params~~
 7. while deleting check if owner is USER_TOKEN
 8. ~~JWT~~
-9. ~~POST & DELETE -> isAuthorized middleware~~
+9. ~~POST & DELETE: isAuthorized middleware~~
+10. download file: check count and last download Date is less than currentday & limit

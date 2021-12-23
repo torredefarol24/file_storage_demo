@@ -1,0 +1,1 @@
+const { Traffic } = require("./model");

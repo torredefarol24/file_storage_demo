@@ -1,12 +1,12 @@
 const { sign, verify } = require("jsonwebtoken");
 const { ENV } = require("../config");
-const { SECRET_KEY, TOKEN_EXPIRY_TIME } = ENV.TOKENS;
+const { SECRET_KEY, EXPIRY_TIME } = ENV.TOKENS;
 const logger = require("./logger");
 
 async function signToken(userId) {
   try {
     const signedToken = await sign({ userId }, SECRET_KEY, {
-      expiresIn: TOKEN_EXPIRY_TIME,
+      expiresIn: EXPIRY_TIME,
     });
     return signedToken;
   } catch (err) {

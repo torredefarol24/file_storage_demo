@@ -8,15 +8,21 @@ const timeStampOpts = {
 };
 
 const schemaOpts = {
-  username: {
+  filedId: {
+    type: Schema.Types.ObjectId,
+    ref: MODELS.FILES,
+    author: true,
+    required: true,
+  },
+  ipAddress: {
     type: String,
     required: true,
   },
 };
 
-const UserSchema = new Schema(schemaOpts, timeStampOpts);
-const User = model(MODELS.USERS, UserSchema);
+const TrafficSchema = new Schema(schemaOpts, timeStampOpts);
+const Traffic = model(MODELS.TRAFFIC, TrafficSchema);
 
 module.exports = {
-  User,
+  Traffic,
 };

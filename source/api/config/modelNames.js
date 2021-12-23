@@ -1,7 +1,7 @@
 const MODELS = {
   USERS: "users",
   FILES: "files",
-  FILE_DOWNLAODS: "fileDownloads",
+  TRAFFIC: "traffic",
 };
 
 module.exports = MODELS;

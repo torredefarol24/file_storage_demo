@@ -25,14 +25,6 @@ const schemaOpts = {
     type: String,
     required: true,
   },
-  downloadCount: {
-    type: String,
-    default: 0,
-  },
-  lastDownloadedAt: {
-    type: Date,
-    default: null,
-  },
   deletedAt: {
     type: Date,
     default: null,
