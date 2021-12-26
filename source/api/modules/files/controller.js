@@ -2,15 +2,10 @@ const { StatusCodes } = require("http-status-codes");
 const { handleAppError, handleAppException, logger } = require("../../utility");
 const { FileService } = require("./service");
 const { TrafficService } = require("../traffic");
+const { createReadStream } = require("fs");
 
 async function downloadFile(request, response) {
   try {
-    let context = {
-      success: true,
-      message: "File Download successful",
-      data: {},
-    };
-
     const fileInfo = await FileService.downloadFile(request.params.publicKey);
     const { file } = fileInfo;
     if (fileInfo.hasError) {
@@ -26,8 +21,17 @@ async function downloadFile(request, response) {
       return handleAppError(limitInfo, response);
     }
 
-    context.data = file.name;
-    return response.status(StatusCodes.OK).json(context);
+    const stream = createReadStream(file.path);
+    const headerOpts = {
+      "Content-Type": file.mimeType,
+      "Content-Disposition": `attachment; filename=${file.name}`,
+    };
+    response.writeHead(StatusCodes.OK, headerOpts);
+
+    stream.on("open", function () {
+      stream.pipe(response);
+    });
+
   } catch (err) {
     return handleAppException(err, response);
   }
