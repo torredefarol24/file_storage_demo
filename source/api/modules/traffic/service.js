@@ -15,6 +15,11 @@ class TrafficService {
 
       if (!reachedTransferLimit(traffic, TRANSFER_TYPES.DOWNLOAD)) {
         await Traffic.create(trafficParams);
+        const findFilter = { _id: trafficParams.fileId };
+        const updateInfo = {
+          lastDownloadedAt: new Date(),
+        };
+        await File.findOneAndUpdate(findFilter, updateInfo);
       } else {
         result.hasError = true;
         result.statusCode = 468;

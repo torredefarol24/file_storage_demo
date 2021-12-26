@@ -33,6 +33,10 @@ const schemaOpts = {
     type: Date,
     default: null,
   },
+  lastDownloadedAt: {
+    type: Date,
+    default: null,
+  },
   userId: {
     type: Schema.Types.ObjectId,
     ref: MODELS.USERS,

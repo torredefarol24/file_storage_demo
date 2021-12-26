@@ -1,4 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
+const { unlink } = require("fs");
 const logger = require("./logger");
 const { ENV, TRANSFER_TYPES } = require("../config");
 
@@ -57,9 +58,17 @@ function handleAppException(err, response) {
     .json(_errorContext(err.message));
 }
 
+function deleteFile(path) {
+  const deleteCB = function (err) {
+    logger.error(err);
+  };
+  unlink(path, deleteCB);
+}
+
 module.exports = {
   handleAppError,
   handleAppException,
+  deleteFile,
   generateKeys,
   reachedTransferLimit,
 };

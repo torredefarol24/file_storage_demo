@@ -5,7 +5,7 @@ const {
   hasPrivateKey,
   isAuthorized,
 } = require("../../middleware");
-const { FileUpload } = require("../../utility");
+const { FileUpload } = require("../../setup");
 
 router.post("/", [isAuthorized, FileUpload.single("file")], uploadFile);
 router.get("/:publicKey", hasPublicKey, downloadFile);

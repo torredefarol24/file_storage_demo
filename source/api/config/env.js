@@ -1,8 +1,11 @@
-const path = require("path");
+const { join } = require("path");
+const { config } = require("dotenv");
+
 const envOpt = {
-  path: path.join(__dirname + "../../../../", ".env"),
+  path: join(__dirname + "../../../../", ".env"),
 };
-require("dotenv").config(envOpt);
+
+config(envOpt);
 
 const {
   // --- SYSTEM ---
@@ -10,11 +13,14 @@ const {
   FOLDER,
   DAILY_DOWNLOAD_LIMIT,
   DAILY_UPLOAD_LIMIT,
+  INACTIVE_DAYS_LIMIT,
+
   // --- DATABASE ---
-  DB_URL,
+  DB_CONN_URL,
+
   // --- TOKENS ---
   JWT_SECRET,
-  EXPIRY_TIME,
+  JWT_EXPIRY_TIME,
 } = process.env;
 
 const SYSTEM = {
@@ -22,14 +28,15 @@ const SYSTEM = {
   STORAGE_PATH: FOLDER,
   DAILY_DOWNLOAD_LIMIT,
   DAILY_UPLOAD_LIMIT,
+  INACTIVE_DAYS_LIMIT,
 };
 
 const DB = {
-  CONNECTION_URL: DB_URL,
+  CONNECTION_URL: DB_CONN_URL,
 };
 
 const TOKENS = {
-  EXPIRY_TIME,
+  EXPIRY_TIME: JWT_EXPIRY_TIME,
   SECRET_KEY: JWT_SECRET,
 };
 

@@ -1,5 +1,5 @@
 const { File } = require("./model");
-const { generateKeys } = require("../../utility");
+const { generateKeys, deleteFile } = require("../../utility");
 const { StatusCodes } = require("http-status-codes");
 
 class FileService {
@@ -59,20 +59,23 @@ class FileService {
         deletedAt: new Date(),
       };
       const file = await File.findOneAndUpdate(findFilter, updateInfo);
-      if (file.deletedAt) {
-        result.hasError = true;
-        result.statusCode = 474;
-        result.message = "This file is already deleted";
-      }
       if (!file) {
         result.hasError = true;
         result.statusCode = StatusCodes.NOT_FOUND;
         result.message = "File not Found";
       }
-      if (file.userId.toString() !== reqUserId.toString()) {
+      if (file && file.deletedAt) {
+        result.hasError = true;
+        result.statusCode = 474;
+        result.message = "This file is already deleted";
+      }
+      if (file && file.userId.toString() !== reqUserId.toString()) {
         result.hasError = true;
         result.statusCode = StatusCodes.FORBIDDEN;
         result.message = "You cannot delete this file";
+      }
+      if (!result.hasError) {
+        deleteFile(file.path);
       }
       return result;
     } catch (err) {
