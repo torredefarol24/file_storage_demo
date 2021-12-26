@@ -1,4 +1,7 @@
+const { MODELS, TRANSFER_TYPES } = require("./misc");
+
 module.exports = {
   ENV: require("./env"),
-  MODELS: require("./modelNames"),
+  MODELS,
+  TRANSFER_TYPES,
 };

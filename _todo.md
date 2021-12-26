@@ -29,5 +29,7 @@
 8. ~~JWT~~
 9. ~~POST & DELETE: isAuthorized middleware~~
 10. ~~download file: check count and last download Date is less than currentday & limit~~
-11. upload & rename file
-12. download file
+11. ~~upload & rename file~~
+12. ~~download file~~
+13. cron job to remove files after X days of inactivity
+14. ~~implement upload traffic limit~~

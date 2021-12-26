@@ -1,5 +1,6 @@
 const { File } = require("./model");
 const { generateKeys } = require("../../utility");
+const { StatusCodes } = require("http-status-codes");
 
 class FileService {
   static async downloadFile(publicKey) {
@@ -15,7 +16,7 @@ class FileService {
       const file = await File.findOne(findFilter);
       if (!file) {
         result.hasError = true;
-        result.statusCode = 404;
+        result.statusCode = StatusCodes.NOT_FOUND;
         result.message = "This file doesn't exist";
       }
       result.file = file;
@@ -65,12 +66,12 @@ class FileService {
       }
       if (!file) {
         result.hasError = true;
-        result.statusCode = 404;
+        result.statusCode = StatusCodes.NOT_FOUND;
         result.message = "File not Found";
       }
       if (file.userId.toString() !== reqUserId.toString()) {
         result.hasError = true;
-        result.statusCode = 403;
+        result.statusCode = StatusCodes.FORBIDDEN;
         result.message = "You cannot delete this file";
       }
       return result;

@@ -16,7 +16,7 @@ async function downloadFile(request, response) {
       fileId: file.id,
       ipAddress: request.connection.remoteAddress,
     };
-    const limitInfo = await TrafficService.checkLimit(trafficParams);
+    const limitInfo = await TrafficService.checkDownloadLimit(trafficParams);
     if (limitInfo.hasError) {
       return handleAppError(limitInfo, response);
     }
@@ -31,7 +31,6 @@ async function downloadFile(request, response) {
     stream.on("open", function () {
       stream.pipe(response);
     });
-
   } catch (err) {
     return handleAppException(err, response);
   }
@@ -44,6 +43,11 @@ async function uploadFile(request, response) {
       message: "File Stored",
       data: {},
     };
+
+    const limitInfo = await TrafficService.checkUploadLimit(request.user.id);
+    if (limitInfo.hasError) {
+      return handleAppError(limitInfo, response);
+    }
 
     const { publicKey, privateKey } = await FileService.createFile(
       request.user.id,

@@ -1,7 +1,9 @@
 const { StatusCodes } = require("http-status-codes");
 const logger = require("./logger");
-const { ENV } = require("../config");
-const TRANSFER_LIMIT = parseInt(ENV.SYSTEM.DOWNLOAD_LIMIT);
+const { ENV, TRANSFER_TYPES } = require("../config");
+
+const DL_LIMIT = parseInt(ENV.SYSTEM.DAILY_DOWNLOAD_LIMIT);
+const UP_LIMIT = parseInt(ENV.SYSTEM.DAILY_UPLOAD_LIMIT);
 
 function _errorContext(message) {
   return {
@@ -26,20 +28,21 @@ function isToday(ts) {
   return new Date(ts).toDateString() === new Date().toDateString();
 }
 
-function reachedTransferLimit(traffic) {
+function reachedTransferLimit(list, transferType) {
+  const limit = transferType === TRANSFER_TYPES.DOWNLOAD ? DL_LIMIT : UP_LIMIT;
   var todaysTransferCount = 0;
 
-  for (var i = 0; i < traffic.length; i++) {
-    if (isToday(traffic[i].createdAt)) {
+  for (var i = 0; i < list.length; i++) {
+    if (isToday(list[i].createdAt)) {
       todaysTransferCount++;
     }
 
-    if (todaysTransferCount >= TRANSFER_LIMIT) {
+    if (todaysTransferCount >= limit) {
       break;
     }
   }
 
-  return todaysTransferCount >= TRANSFER_LIMIT;
+  return todaysTransferCount >= limit;
 }
 
 function handleAppError(params, response) {

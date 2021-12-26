@@ -1,7 +1,7 @@
 const express = require("express");
 const { logger } = require("../utility");
 const { ENV } = require("../config");
-const { bootstrapApp, connectToDB } = require("./bootstrap");
+const { bootstrapApp, connectToDB, createStorageDir } = require("./bootstrap");
 
 class FileSharingService {
   #app;
@@ -10,6 +10,7 @@ class FileSharingService {
     this.#startHttpServer(this.#app);
     this.#setupApp(this.#app);
     this.#connectToDatabase();
+    this.#createStorageDirectory();
   }
 
   #startHttpServer(app) {
@@ -23,6 +24,10 @@ class FileSharingService {
 
   #connectToDatabase() {
     connectToDB();
+  }
+
+  #createStorageDirectory() {
+    createStorageDir();
   }
 }
 

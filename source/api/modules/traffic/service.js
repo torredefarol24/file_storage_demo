@@ -1,8 +1,10 @@
 const { Traffic } = require("./model");
+const { File } = require("../files/model");
+const { TRANSFER_TYPES } = require("../../config");
 const { reachedTransferLimit } = require("../../utility");
 
 class TrafficService {
-  static async checkLimit(trafficParams) {
+  static async checkDownloadLimit(trafficParams) {
     try {
       var result = {
         hasError: false,
@@ -11,12 +13,37 @@ class TrafficService {
         createdAt: -1,
       });
 
-      if (!reachedTransferLimit(traffic)) {
+      if (!reachedTransferLimit(traffic, TRANSFER_TYPES.DOWNLOAD)) {
         await Traffic.create(trafficParams);
       } else {
         result.hasError = true;
         result.statusCode = 468;
         result.message = "Download Limit reached!";
+      }
+
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async checkUploadLimit(userId) {
+    try {
+      var result = {
+        hasError: false,
+      };
+      const findFilter = {
+        userId,
+        deletedAt: null,
+      };
+      const files = await File.find(findFilter).sort({
+        createdAt: -1,
+      });
+
+      if (reachedTransferLimit(files, TRANSFER_TYPES.UPLOAD)) {
+        result.hasError = true;
+        result.statusCode = 478;
+        result.message = "Upload Limit reached!";
       }
 
       return result;

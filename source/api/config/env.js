@@ -8,7 +8,8 @@ const {
   // --- SYSTEM ---
   PORT,
   FOLDER,
-  DOWNLOAD_LIMIT,
+  DAILY_DOWNLOAD_LIMIT,
+  DAILY_UPLOAD_LIMIT,
   // --- DATABASE ---
   DB_URL,
   // --- TOKENS ---
@@ -19,7 +20,8 @@ const {
 const SYSTEM = {
   PORT,
   STORAGE_PATH: FOLDER,
-  DOWNLOAD_LIMIT,
+  DAILY_DOWNLOAD_LIMIT,
+  DAILY_UPLOAD_LIMIT,
 };
 
 const DB = {
