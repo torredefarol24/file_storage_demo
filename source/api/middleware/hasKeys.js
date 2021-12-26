@@ -1,9 +1,9 @@
-const { handleAppError } = require("../utility");
-const { StatusCodes } = require("http-status-codes");
+const { StatusCodes } = require('http-status-codes');
+const { handleAppError } = require('../utility');
 
 const errParams = {
   statusCode: StatusCodes.BAD_REQUEST,
-  message: "Params Missing",
+  message: 'Params Missing',
 };
 
 function hasPublicKey(request, response, next) {

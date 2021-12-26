@@ -1,12 +1,12 @@
-const { Traffic } = require("./model");
-const { File } = require("../files/model");
-const { TRANSFER_TYPES } = require("../../config");
-const { reachedTransferLimit } = require("../../utility");
+const { Traffic } = require('./model');
+const { File } = require('../files/model');
+const { TRANSFER_TYPES } = require('../../config');
+const { reachedTransferLimit } = require('../../utility');
 
 class TrafficService {
   static async checkDownloadLimit(trafficParams) {
     try {
-      var result = {
+      const result = {
         hasError: false,
       };
       const traffic = await Traffic.find(trafficParams).sort({
@@ -23,7 +23,7 @@ class TrafficService {
       } else {
         result.hasError = true;
         result.statusCode = 468;
-        result.message = "Download Limit reached!";
+        result.message = 'Download Limit reached!';
       }
 
       return result;
@@ -34,7 +34,7 @@ class TrafficService {
 
   static async checkUploadLimit(userId) {
     try {
-      var result = {
+      const result = {
         hasError: false,
       };
       const findFilter = {
@@ -48,7 +48,7 @@ class TrafficService {
       if (reachedTransferLimit(files, TRANSFER_TYPES.UPLOAD)) {
         result.hasError = true;
         result.statusCode = 478;
-        result.message = "Upload Limit reached!";
+        result.message = 'Upload Limit reached!';
       }
 
       return result;

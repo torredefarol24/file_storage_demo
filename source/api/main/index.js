@@ -1,4 +1,4 @@
 module.exports = {
-  FileSharingService: require("./app"),
-  StagingService: require("./staginApp"),
+  FileSharingService: require('./app'),
+  StagingService: require('./stagingApp'),
 };

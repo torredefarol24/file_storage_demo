@@ -1,3 +1,3 @@
 module.exports = {
-  filesRouter: require("./routes"),
+  filesRouter: require('./routes'),
 };

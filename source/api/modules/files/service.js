@@ -1,11 +1,11 @@
-const { File } = require("./model");
-const { generateKeys, deleteFile } = require("../../utility");
-const { StatusCodes } = require("http-status-codes");
+const { StatusCodes } = require('http-status-codes');
+const { File } = require('./model');
+const { generateKeys, deleteFile } = require('../../utility');
 
 class FileService {
   static async downloadFile(publicKey) {
     try {
-      var result = {
+      const result = {
         hasError: false,
       };
       const findFilter = {
@@ -38,7 +38,7 @@ class FileService {
         privateKey,
         userId,
       };
-      const file = await File.create(fileInfo);
+      await File.create(fileInfo);
       return {
         publicKey,
         privateKey,
@@ -51,7 +51,7 @@ class FileService {
   static async deleteFile(params) {
     try {
       const { privateKey, reqUserId } = params;
-      var result = {
+      const result = {
         hasError: false,
       };
       const findFilter = { privateKey };
@@ -62,17 +62,17 @@ class FileService {
       if (!file) {
         result.hasError = true;
         result.statusCode = StatusCodes.NOT_FOUND;
-        result.message = "File not Found";
+        result.message = 'File not Found';
       }
       if (file && file.deletedAt) {
         result.hasError = true;
         result.statusCode = 474;
-        result.message = "This file is already deleted";
+        result.message = 'This file is already deleted';
       }
       if (file && file.userId.toString() !== reqUserId.toString()) {
         result.hasError = true;
         result.statusCode = StatusCodes.FORBIDDEN;
-        result.message = "You cannot delete this file";
+        result.message = 'You cannot delete this file';
       }
       if (!result.hasError) {
         deleteFile(file.path);

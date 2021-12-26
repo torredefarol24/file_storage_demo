@@ -1,8 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
+const { createReadStream } = require("fs");
 const { handleAppError, handleAppException, logger } = require("../../utility");
 const { FileService } = require("./service");
 const { TrafficService } = require("../traffic");
-const { createReadStream } = require("fs");
 
 async function downloadFile(request, response) {
   try {
@@ -28,7 +28,7 @@ async function downloadFile(request, response) {
     };
     response.writeHead(StatusCodes.OK, headerOpts);
 
-    stream.on("open", function () {
+    stream.on("open", () => {
       stream.pipe(response);
     });
   } catch (err) {
@@ -38,17 +38,11 @@ async function downloadFile(request, response) {
 
 async function uploadFile(request, response) {
   try {
-    let context = {
+    const context = {
       success: true,
       message: "File Stored",
       data: {},
     };
-
-    const limitInfo = await TrafficService.checkUploadLimit(request.user.id);
-    if (limitInfo.hasError) {
-      return handleAppError(limitInfo, response);
-    }
-
     const { publicKey, privateKey } = await FileService.createFile(
       request.user.id,
       request.file
@@ -65,7 +59,7 @@ async function uploadFile(request, response) {
 
 async function deleteFile(request, response) {
   try {
-    let context = {
+    const context = {
       success: true,
       message: "File Deleted",
       data: {},

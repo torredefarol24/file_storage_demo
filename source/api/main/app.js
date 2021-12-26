@@ -1,11 +1,12 @@
-const express = require("express");
-const { logger } = require("../utility");
-const { ENV } = require("../config");
-const { bootstrapApp } = require("./bootstrap");
-const { connectToDB, createStorageDir, cleanupStorage } = require("../setup");
+const express = require('express');
+const { logger } = require('../utility');
+const { ENV } = require('../config');
+const { bootstrapApp } = require('./bootstrap');
+const { connectToDB, createStorageDir, cleanupStorage } = require('../setup');
 
 class FileSharingService {
   #app;
+
   constructor() {
     this.#app = express();
     this.#startHttpServer(this.#app);
@@ -16,7 +17,7 @@ class FileSharingService {
   }
 
   #startHttpServer(app) {
-    const listenCB = logger.log(`Server Listening on port:`, ENV.SYSTEM.PORT);
+    const listenCB = logger.log('Server Listening on port:', ENV.SYSTEM.PORT);
     app.listen(ENV.SYSTEM.PORT, listenCB);
   }
 

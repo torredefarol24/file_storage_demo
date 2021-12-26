@@ -1,6 +1,6 @@
-const router = require("express").Router();
-const { generateUserInfo } = require("./controller");
+const router = require('express').Router();
+const { generateUserInfo } = require('./controller');
 
-router.post("/", generateUserInfo);
+router.post('/', generateUserInfo);
 
 module.exports = router;

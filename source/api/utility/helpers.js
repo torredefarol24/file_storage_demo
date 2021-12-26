@@ -1,7 +1,7 @@
-const { StatusCodes } = require("http-status-codes");
-const { unlink } = require("fs");
-const logger = require("./logger");
-const { ENV, TRANSFER_TYPES } = require("../config");
+const { StatusCodes } = require('http-status-codes');
+const { unlink } = require('fs');
+const logger = require('./logger');
+const { ENV, TRANSFER_TYPES } = require('../config');
 
 const DL_LIMIT = parseInt(ENV.TRAFFIC.DAILY_DOWNLOAD_LIMIT);
 const UP_LIMIT = parseInt(ENV.TRAFFIC.DAILY_UPLOAD_LIMIT);
@@ -31,9 +31,9 @@ function isToday(ts) {
 
 function reachedTransferLimit(list, transferType) {
   const limit = transferType === TRANSFER_TYPES.DOWNLOAD ? DL_LIMIT : UP_LIMIT;
-  var todaysTransferCount = 0;
+  let todaysTransferCount = 0;
 
-  for (var i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     if (isToday(list[i].createdAt)) {
       todaysTransferCount++;
     }
@@ -59,9 +59,9 @@ function handleAppException(err, response) {
 }
 
 function deleteFile(path) {
-  const deleteCB = function (err) {
+  function deleteCB(err) {
     logger.error(err);
-  };
+  }
   unlink(path, deleteCB);
 }
 

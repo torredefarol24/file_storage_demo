@@ -4,7 +4,7 @@ const {
   generateKeys,
   reachedTransferLimit,
   deleteFile,
-} = require("./helpers");
+} = require('./helpers');
 
 module.exports = {
   handleAppError,
@@ -12,6 +12,6 @@ module.exports = {
   generateKeys,
   reachedTransferLimit,
   deleteFile,
-  logger: require("./logger"),
-  TokenService: require("./tokens"),
+  logger: require('./logger'),
+  TokenService: require('./tokens'),
 };

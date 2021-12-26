@@ -1,7 +1,8 @@
-const { sign, verify } = require("jsonwebtoken");
-const { ENV } = require("../config");
+const { sign, verify } = require('jsonwebtoken');
+const { ENV } = require('../config');
+
 const { SECRET_KEY, EXPIRY_TIME } = ENV.TOKENS;
-const logger = require("./logger");
+const logger = require('./logger');
 
 async function signToken(userId) {
   try {

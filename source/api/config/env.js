@@ -1,8 +1,8 @@
-const { join } = require("path");
-const { config } = require("dotenv");
+const { join } = require('path');
+const { config } = require('dotenv');
 
 const envOpt = {
-  path: join(__dirname + "../../../../", ".env"),
+  path: join(`${__dirname}../../../../`, '.env'),
 };
 
 config(envOpt);
@@ -25,13 +25,13 @@ const {
 
 const SYSTEM = {
   PORT,
-  STORAGE_PATH: FOLDER,
+  STORAGE_PATH: LAUNCH_MODE === 'test' ? `${FOLDER_TEST}` : FOLDER,
   LAUNCH_MODE,
 };
 
 const TRAFFIC = {
-  DAILY_DOWNLOAD_LIMIT: LAUNCH_MODE === "test" ? 2 : DAILY_DOWNLOAD_LIMIT,
-  DAILY_UPLOAD_LIMIT: LAUNCH_MODE === "test" ? 2 : DAILY_UPLOAD_LIMIT,
+  DAILY_DOWNLOAD_LIMIT: LAUNCH_MODE === 'test' ? 2 : DAILY_DOWNLOAD_LIMIT,
+  DAILY_UPLOAD_LIMIT: LAUNCH_MODE === 'test' ? 2 : DAILY_UPLOAD_LIMIT,
   INACTIVE_DAYS_LIMIT,
 };
 

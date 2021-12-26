@@ -4,10 +4,15 @@ const {
   hasPublicKey,
   hasPrivateKey,
   isAuthorized,
+  isUploadLimitReached,
 } = require("../../middleware");
 const { FileUpload } = require("../../setup");
 
-router.post("/", [isAuthorized, FileUpload.single("file")], uploadFile);
+router.post(
+  "/",
+  [isAuthorized, isUploadLimitReached, FileUpload.single("file")],
+  uploadFile
+);
 router.get("/:publicKey", hasPublicKey, downloadFile);
 router.delete("/:privateKey", [isAuthorized, hasPrivateKey], deleteFile);
 

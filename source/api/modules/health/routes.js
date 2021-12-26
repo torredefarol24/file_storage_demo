@@ -1,10 +1,10 @@
-const router = require("express").Router();
-const { StatusCodes } = require("http-status-codes");
+const router = require('express').Router();
+const { StatusCodes } = require('http-status-codes');
 
-router.get("/", function (request, response) {
+router.get('/', (request, response) => {
   const context = {
     success: true,
-    message: "Health OK!",
+    message: 'Health OK!',
     data: null,
   };
   return response.status(StatusCodes.OK).json(context);

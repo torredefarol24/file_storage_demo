@@ -1,6 +1,5 @@
-const { handleAppError } = require("../utility");
 const { StatusCodes } = require("http-status-codes");
-const { TokenService } = require("../utility");
+const { TokenService, handleAppError } = require("../utility");
 
 const errParams = {
   statusCode: StatusCodes.UNAUTHORIZED,
@@ -9,7 +8,7 @@ const errParams = {
 
 async function isAuthorized(request, response, next) {
   try {
-    let bearerToken = request.headers && request.headers.authorization;
+    const bearerToken = request.headers && request.headers.authorization;
     if (!bearerToken) {
       return handleAppError(errParams, response);
     }

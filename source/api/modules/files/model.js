@@ -1,10 +1,10 @@
-const { MODELS } = require("../../config");
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
+const { MODELS } = require('../../config');
 
 const timeStampOpts = {
   timestamps: {
-    createdAt: "createdAt",
-    updatedAt: "updatedAt",
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
   },
 };
 

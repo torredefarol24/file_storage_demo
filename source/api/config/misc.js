@@ -1,12 +1,12 @@
 const MODELS = {
-  USERS: "users",
-  FILES: "files",
-  TRAFFIC: "traffic",
+  USERS: 'users',
+  FILES: 'files',
+  TRAFFIC: 'traffic',
 };
 
 const TRANSFER_TYPES = {
-  DOWNLOAD: "download",
-  UPLOAD: "upload",
+  DOWNLOAD: 'download',
+  UPLOAD: 'upload',
 };
 
 module.exports = {

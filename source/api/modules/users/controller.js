@@ -1,12 +1,12 @@
-const { StatusCodes } = require("http-status-codes");
-const { handleAppException } = require("../../utility");
-const { UserService } = require("./service");
+const { StatusCodes } = require('http-status-codes');
+const { handleAppException } = require('../../utility');
+const { UserService } = require('./service');
 
 async function generateUserInfo(request, response) {
   try {
-    let context = {
+    const context = {
       success: true,
-      message: "User Created",
+      message: 'User Created',
       data: {},
     };
 
