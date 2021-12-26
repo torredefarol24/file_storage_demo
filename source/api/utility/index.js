@@ -12,4 +12,5 @@ module.exports = {
   reachedTransferLimit,
   logger: require("./logger"),
   TokenService: require("./tokens"),
+  FileUpload: require("./fileUploads"),
 };

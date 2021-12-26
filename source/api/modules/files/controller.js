@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const { handleAppError, handleAppException } = require("../../utility");
+const { handleAppError, handleAppException, logger } = require("../../utility");
 const { FileService } = require("./service");
 const { TrafficService } = require("../traffic");
 
@@ -42,7 +42,8 @@ async function uploadFile(request, response) {
     };
 
     const { publicKey, privateKey } = await FileService.createFile(
-      request.user.id
+      request.user.id,
+      request.file
     );
     context.data = {
       publicKey,

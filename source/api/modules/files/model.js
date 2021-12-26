@@ -17,6 +17,10 @@ const schemaOpts = {
     type: String,
     required: true,
   },
+  mimeType: {
+    type: String,
+    required: true,
+  },
   publicKey: {
     type: String,
     required: true,

@@ -13,7 +13,7 @@ class FileSharingService {
   }
 
   #startHttpServer(app) {
-    const listenCB = logger.log(`Server Listening on port: ${ENV.SYSTEM.PORT}`);
+    const listenCB = logger.log(`Server Listening on port:`, ENV.SYSTEM.PORT);
     app.listen(ENV.SYSTEM.PORT, listenCB);
   }
 

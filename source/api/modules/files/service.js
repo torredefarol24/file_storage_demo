@@ -25,12 +25,14 @@ class FileService {
     }
   }
 
-  static async createFile(userId) {
+  static async createFile(userId, fileParams) {
     try {
       const { publicKey, privateKey } = generateKeys();
+      const { mimetype, filename, path } = fileParams;
       const fileInfo = {
-        name: "testName",
-        path: "testPath",
+        name: filename,
+        path,
+        mimeType: mimetype,
         publicKey,
         privateKey,
         userId,
