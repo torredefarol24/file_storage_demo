@@ -9,6 +9,6 @@ const { FileUpload } = require("../../setup");
 
 router.post("/", [isAuthorized, FileUpload.single("file")], uploadFile);
 router.get("/:publicKey", hasPublicKey, downloadFile);
-router.delete("/:privateKey", [hasPrivateKey, isAuthorized], deleteFile);
+router.delete("/:privateKey", [isAuthorized, hasPrivateKey], deleteFile);
 
 module.exports = router;

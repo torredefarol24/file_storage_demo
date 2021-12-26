@@ -19,6 +19,15 @@
     "setup_env": "cp .env.example .env",
     "start_dev": "nodemon source/server.js",
     "start": "node source/server.js",
-    "test": "echo 'TEST'"
+    "test": "mocha --recursive",
+    "lint": "eslint . --max-warnings=0 "
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "eslint": "^8.5.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "mocha": "^9.1.3"
   }
 }

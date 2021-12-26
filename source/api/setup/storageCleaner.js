@@ -2,14 +2,13 @@ const { schedule } = require("node-cron");
 const { ENV } = require("../config");
 const { File } = require("../modules/files/model");
 const { logger, deleteFile } = require("../utility");
-
+const { INACTIVE_DAYS_LIMIT } = ENV.TRAFFIC;
 const EXEC_DAILY = "0 0 0 * * *";
 
 async function cleanupStorage() {
   try {
     const timeLimit =
-      new Date().getTime() -
-      ENV.SYSTEM.INACTIVE_DAYS_LIMIT * 24 * 60 * 60 * 1000;
+      new Date().getTime() - INACTIVE_DAYS_LIMIT * 24 * 60 * 60 * 1000;
     const cleanupDate = new Date(timeLimit);
 
     const findFilter = {

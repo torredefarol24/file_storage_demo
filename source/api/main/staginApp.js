@@ -4,20 +4,14 @@ const { ENV } = require("../config");
 const { bootstrapApp } = require("./bootstrap");
 const { connectToDB, createStorageDir, cleanupStorage } = require("../setup");
 
-class FileSharingService {
-  #app;
+class StagingService {
+  #stagingApp;
+
   constructor() {
-    this.#app = express();
-    this.#startHttpServer(this.#app);
-    this.#setupApp(this.#app);
+    this.#stagingApp = express();
+    this.#setupApp(this.#stagingApp);
     this.#connectToDatabase();
     this.#createStorageDirectory();
-    this.#cleanupUnusedFiles();
-  }
-
-  #startHttpServer(app) {
-    const listenCB = logger.log(`Server Listening on port:`, ENV.SYSTEM.PORT);
-    app.listen(ENV.SYSTEM.PORT, listenCB);
   }
 
   #setupApp(app) {
@@ -32,9 +26,9 @@ class FileSharingService {
     createStorageDir();
   }
 
-  #cleanupUnusedFiles() {
-    cleanupStorage;
+  startMockServer(port) {
+    return this.#stagingApp.listen(port);
   }
 }
 
-module.exports = FileSharingService;
+module.exports = StagingService;

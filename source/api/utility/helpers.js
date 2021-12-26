@@ -3,8 +3,8 @@ const { unlink } = require("fs");
 const logger = require("./logger");
 const { ENV, TRANSFER_TYPES } = require("../config");
 
-const DL_LIMIT = parseInt(ENV.SYSTEM.DAILY_DOWNLOAD_LIMIT);
-const UP_LIMIT = parseInt(ENV.SYSTEM.DAILY_UPLOAD_LIMIT);
+const DL_LIMIT = parseInt(ENV.TRAFFIC.DAILY_DOWNLOAD_LIMIT);
+const UP_LIMIT = parseInt(ENV.TRAFFIC.DAILY_UPLOAD_LIMIT);
 
 function _errorContext(message) {
   return {

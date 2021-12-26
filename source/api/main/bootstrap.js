@@ -1,7 +1,6 @@
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const { router } = require("../modules");
-const { logger } = require("../utility");
 
 function bootstrapApp(app) {
   app.use(bodyParser.json());

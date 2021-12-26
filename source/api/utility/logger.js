@@ -1,3 +1,4 @@
+const { ENV } = require("../config");
 const currentTS = new Date().toISOString().split("T");
 const currentTime = `[${currentTS[0]} ${currentTS[1].split(".")[0]}]`;
 
@@ -10,15 +11,18 @@ function _getMsg(args) {
 }
 
 function log() {
-  console.log(`${currentTime} --`, _getMsg(arguments));
+  ENV.SYSTEM.LAUNCH_MODE !== "test" &&
+    console.log(`${currentTime} --`, _getMsg(arguments));
 }
 
 function error() {
-  console.log("\x1b[31m", `${currentTime} -- ERROR --`, _getMsg(arguments));
+  ENV.SYSTEM.LAUNCH_MODE !== "test" &&
+    console.log("\x1b[31m", `${currentTime} -- ERROR --`, _getMsg(arguments));
 }
 
 function debug() {
-  console.log("\x1b[33m", `${currentTime} -- DEBUG --`, _getMsg(arguments));
+  ENV.SYSTEM.LAUNCH_MODE !== "test" &&
+    console.log("\x1b[33m", `${currentTime} -- DEBUG --`, _getMsg(arguments));
 }
 
 module.exports = {
